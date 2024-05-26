@@ -45,7 +45,7 @@ def main():
 
     final_sum /= 100
 
-    print("Sum: " + str(final_sum))
+    print("The total rounded-up sum is: " + str(final_sum))
 
 
 if __name__ == "__main__":
