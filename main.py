@@ -13,34 +13,34 @@ def main():
     df = pd.read_csv(csv_file, sep=separator)
 
     # Get month to filter for
-    date = input("Enter a month with a year: ")
+    # date = input("Enter a month with a year: ")
+    date = "04.2024"
     if not re.match(regex_date, date):
         print("Invalid date format.")
         return
 
-    # Filter df for dates that include 05.2024
+    # Filter df for dates
     df = df[df[date_column_name].str.contains(date)]
 
     # Iterate over all rows and sum the difference for each row when rounding the amount up to the nearest euro / dollar.
     sum = 0
     for index, row in df.iterrows():
-
         amount = float(row[value_column_name].replace(",", "."))
+        amount *= 100
 
         if only_negative_amounts and amount > 0:
             continue
 
-        amount = amount - int(amount)
-        amount = round(amount, 2)
+        amount = int(abs(amount))
 
-        amount = abs(amount)
+        amount = amount % 100
 
         if amount == 0:
             continue
 
-        sum += 1 - amount
+        sum += 100 - amount
 
-        sum = round(sum, 2)
+    sum /= 100
 
     print("Sum: " + str(sum))
 
